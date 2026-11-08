@@ -24,6 +24,6 @@ services:
 
 databases:
   - name: nkr-db
-    plan: starter
+    plan: 0.1c-256mb
     databaseName: nkr
     user: nkr
