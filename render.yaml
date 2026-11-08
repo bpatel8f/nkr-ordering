@@ -1,0 +1,29 @@
+# Render Blueprint for the NKR Convenience and Food ordering app.
+# Deploy from the Render dashboard: New > Blueprint > connect this repo.
+# Pricing at time of writing: web service $7/mo + Postgres $6/mo = $13/mo.
+services:
+  - type: web
+    name: nkr-ordering
+    env: node
+    plan: starter
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nkr-db
+          property: connectionString
+      # Set these in the Render dashboard (Environment tab) after deploy:
+      # STORE_PIN — PIN for the Orders / Store setup tabs (required).
+      # TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM_NUMBER —
+      #   only needed to enable SMS alerts for new orders.
+      # TWILIO_ALERT_TO — optional, defaults to +12174189581,+16036745740.
+    healthCheckPath: /api/storefront
+
+databases:
+  - name: nkr-db
+    plan: starter
+    databaseName: nkr
+    user: nkr

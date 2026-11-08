@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NKR Convenience and Food — Order for Pickup</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div>
+    <h1 id="store-name">NKR Convenience and Food</h1>
+    <p id="store-tagline" class="tagline"></p>
+    <p id="store-meta" class="meta"></p>
+  </div>
+  <div class="header-actions">
+    <button id="cart-btn" class="cart-btn" type="button">🛒 Cart (<span id="cart-count">0</span>) · <span id="cart-total">$0.00</span></button>
+  </div>
+</header>
+<div id="paused-banner" class="paused-banner" hidden>Online ordering is paused right now — please call the store.</div>
+
+<nav class="tabs">
+  <button data-tab="menu" class="active" type="button">Menu</button>
+  <button data-tab="orders" type="button">Orders</button>
+  <button data-tab="setup" type="button">Store Setup</button>
+</nav>
+
+<main>
+  <section id="tab-menu" class="tab active">
+    <div id="menu"></div>
+  </section>
+
+  <section id="tab-orders" class="tab">
+    <div id="pin-box" class="card">
+      <h2>Store sign-in</h2>
+      <p>Enter the store PIN to see the kitchen queue.</p>
+      <form id="pin-form">
+        <input id="pin-input" type="password" inputmode="numeric" placeholder="Store PIN" autocomplete="current-password">
+        <button type="submit">Unlock</button>
+      </form>
+      <p id="pin-error" class="error" hidden>Wrong PIN — try again.</p>
+    </div>
+    <div id="orders-box" hidden>
+      <div class="orders-head">
+        <h2>Kitchen queue</h2>
+        <button id="refresh-orders" type="button">Refresh</button>
+        <button id="logout-btn" type="button">Lock</button>
+      </div>
+      <div id="orders"></div>
+    </div>
+  </section>
+
+  <section id="tab-setup" class="tab">
+    <div id="setup-locked" class="card">
+      <h2>Store setup</h2>
+      <p>Store setup needs the store PIN. Unlock it on the Orders tab first.</p>
+      <button id="goto-orders" type="button">Go to Orders to unlock</button>
+    </div>
+    <div id="setup-box" hidden>
+      <h2>Store settings</h2>
+      <form id="settings-form" class="card form-grid"></form>
+      <h2>Menu items</h2>
+      <form id="add-item-form" class="card form-grid">
+        <h3>Add a menu item</h3>
+        <label>Name <input name="name" required></label>
+        <label>Description <input name="description"></label>
+        <label>Price ($) <input name="price" type="number" step="0.01" min="0" required></label>
+        <label>Category <input name="category" value="Sides" required></label>
+        <button type="submit">Add item</button>
+      </form>
+      <div id="menu-editor"></div>
+    </div>
+  </section>
+</main>
+
+<aside id="cart-panel" class="cart-panel" hidden>
+  <h2>Your order</h2>
+  <div id="cart-items"></div>
+  <form id="checkout-form">
+    <label>Your name <input id="cust-name" required maxlength="80"></label>
+    <label>Phone (optional) <input id="cust-phone" type="tel" maxlength="30"></label>
+    <label>Pickup time
+      <input id="pickup-time" required maxlength="60" placeholder="e.g. 5:30 PM">
+    </label>
+    <div class="time-chips">
+      <button type="button" data-pickup="ASAP">ASAP</button>
+      <button type="button" data-pickup="in 30 minutes">in 30 min</button>
+      <button type="button" data-pickup="in 1 hour">in 1 hour</button>
+    </div>
+    <label>Notes <textarea id="order-notes" maxlength="300" placeholder="Anything we should know?"></textarea></label>
+    <p class="total-line">Total: <strong id="checkout-total">$0.00</strong> · Pay at the counter when you pick up.</p>
+    <button id="place-order-btn" type="submit">Place order</button>
+    <button id="close-cart" type="button" class="secondary">Keep browsing</button>
+  </form>
+  <div id="order-confirm" hidden>
+    <h3>✅ Order placed!</h3>
+    <p id="confirm-text"></p>
+    <button id="new-order-btn" type="button">Start a new order</button>
+  </div>
+</aside>
+
+<script src="/app.js"></script>
+</body>
+</html>
