@@ -8,7 +8,7 @@
  */
 
 export const GARLIC_PARMESAN_STOCK_PHOTO =
-  'https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=800&q=80';
+  '/images/garlic-parmesan-wings.jpg';
 
 const BY_NAME: Record<string, string> = {
   '12" Cheese Pizza': '/images/cheese-pizza.jpg',
